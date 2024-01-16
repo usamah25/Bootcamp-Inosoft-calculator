@@ -1,0 +1,26 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.display-calc {
+    height: 80px;
+}
+
+.main {
+    background-color: black;
+    color: white;
+    height: 370px;
+    width: 400px;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    margin: auto;
+}
+
+.btn {
+    height: 80px;
+    width: 90px;
+    padding: 0;
+    margin-top: 10px;
+}
