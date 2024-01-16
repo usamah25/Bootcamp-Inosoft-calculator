@@ -16,8 +16,10 @@
                 <form action="#" name="calculator" class="main">
                     <input type="text" id="display" readonly class="form-control display-calc">
 
-                    <button type="button" class="btn btn-danger btn-block" onclick="clearDisplay()">Clear All</button>
+                    <button type="button" class="btn btn-danger btn-block" onclick="clearDisplay()">AC</button>
                     <button type="button" class="btn btn-primary" onclick="togglePlusMinus()">+/-</button>
+                    <button type="button" class="btn btn-primary btn-block" onclick="appendToDisplay('%')">%</button>
+                    <button type="button" class="btn btn-primary btn-block" onclick="appendToDisplay('/')">/</button>
 
                     <button type="button" class="btn btn-secondary" onclick="appendToDisplay('7')">7</button>
                     <button type="button" class="btn btn-secondary" onclick="appendToDisplay('8')">8</button>
@@ -32,18 +34,19 @@
                     <button type="button" class="btn btn-secondary" onclick="appendToDisplay('1')">1</button>
                     <button type="button" class="btn btn-secondary" onclick="appendToDisplay('2')">2</button>
                     <button type="button" class="btn btn-secondary" onclick="appendToDisplay('3')">3</button>
-                    <button type="button" class="btn btn-primary" onclick="calculate()">=</button>
-
-                    <button type="button" class="btn btn-secondary" onclick="appendToDisplay('0')">0</button>
-                    <button type="button" class="btn btn-secondary" onclick="clearDisplay()">C</button>
                     <button type="button" class="btn btn-primary" onclick="appendToDisplay('*')">*</button>
+                    
+                    <button type="button" class="btn btn-secondary btn-block" onclick="backspace()">C</button>
+                    <button type="button" class="btn btn-secondary" onclick="appendToDisplay('0')">0</button>
+                    <button type="button" class="btn btn-secondary btn-block" onclick="appendToDisplay('.')">.</button>
+                    <button type="button" class="btn btn-primary" onclick="calculate()">=</button>
                 </form>
             </div>
         </div>
     </div>
 
     <script>
-        function appendToDisplay(value) {
+    function appendToDisplay(value) {
         var display = document.getElementById('display');
         display.value += value;
     }
@@ -52,14 +55,25 @@
         document.getElementById('display').value = '';
     }
 
+    function backspace() {
+        var display = document.getElementById('display');
+        display.value = display.value.slice(0, -1);
+    }
+
     function calculate() {
         var display = document.getElementById('display');
-        display.value = eval(display.value);
+        // Mengganti simbol persen dengan "/ 100" sebelum evaluasi
+        display.value = eval(display.value.replace(/%/g, '/100'));
+
+        // Memastikan angka desimal ditampilkan dengan tepat
+        if (display.value % 1 !== 0) {
+            display.value = parseFloat(display.value).toFixed(4).replace(/\.?0+$/, '');
+        }
     }
 
     function togglePlusMinus() {
         var display = document.getElementById('display');
-        var currentValue = display.value;
+        var currentValue = display.value.trim();
 
         if (currentValue.startsWith('-')) {
             display.value = currentValue.substring(1);
