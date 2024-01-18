@@ -1,16 +1,21 @@
+@import url('https://fonts.cdnfonts.com/css/calculator');
+
 * {
     margin: 0;
     padding: 0;
 }
 
 .display-calc {
-    height: 80px;
+    height: 100px;
+    text-align: right;
+    font-size: 3rem;
+    font-family: 'Calculator', sans-serif; 
 }
 
 .main {
     background-color: black;
     color: white;
-    height: 560px;
+    height: 575px;
     width: 400px;
     padding: 10px;
     border-radius: 10px;
@@ -23,4 +28,5 @@
     width: 90px;
     padding: 0;
     margin-top: 10px;
+    font-size: 1.4rem;                                          
 }

@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"> 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
         integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -35,26 +36,37 @@
                     <button type="button" class="btn btn-secondary" onclick="appendToDisplay('4')">4</button>
                     <button type="button" class="btn btn-secondary" onclick="appendToDisplay('5')">5</button>
                     <button type="button" class="btn btn-secondary" onclick="appendToDisplay('6')">6</button>
-                    <button type="button" class="btn btn-primary" onclick="appendToDisplay('-')"><i class='fa fa-minus'></i></button>
+                    <button type="button" class="btn btn-primary" onclick="appendToDisplay('-')"><i
+                            class='fa fa-minus'></i></button>
 
                     <button type="button" class="btn btn-secondary" onclick="appendToDisplay('1')">1</button>
                     <button type="button" class="btn btn-secondary" onclick="appendToDisplay('2')">2</button>
                     <button type="button" class="btn btn-secondary" onclick="appendToDisplay('3')">3</button>
-                    <button type="button" class="btn btn-primary" onclick="appendToDisplay('+')"><i class='fa fa-plus'></i></button>
+                    <button type="button" class="btn btn-primary" onclick="appendToDisplay('+')"><i
+                            class='fa fa-plus'></i></button>
 
-                    <button type="button" class="btn btn-secondary btn-block" onclick="backspace()">C</button>
+                    <button type="button" class="btn btn-warning" onclick="backspace()">C</button>
                     <button type="button" class="btn btn-secondary" onclick="appendToDisplay('0')">0</button>
                     <button type="button" class="btn btn-secondary btn-block" onclick="appendToDisplay('.')">.</button>
-                    <button type="button" class="btn btn-primary" onclick="calculate()"><i class='fas fa-equals'></i></button>
+                    <button type="button" class="btn btn-primary" onclick="calculate()"><i
+                            class='fas fa-equals'></i></button>
                 </form>
             </div>
         </div>
     </div>
 
     <script>
+        var newResultDisplayed = false;
+
         function appendToDisplay(value) {
             var display = document.getElementById('display');
-            display.value += value;
+
+            if (newResultDisplayed) {
+                display.value = value;
+                newResultDisplayed = false;
+            } else {
+                display.value += value;
+            }
         }
 
         function clearDisplay() {
@@ -68,13 +80,13 @@
 
         function calculate() {
             var display = document.getElementById('display');
-            // Mengganti simbol persen dengan "/ 100" sebelum evaluasi
             display.value = eval(display.value.replace(/%/g, '/100'));
 
-            // Memastikan angka desimal ditampilkan dengan tepat
             if (display.value % 1 !== 0) {
-                display.value = parseFloat(display.value).toFixed(4).replace(/\.?0+$/, '');
+                display.value = parseFloat(display.value).replace(/\.?0+$/, '');
             }
+
+            newResultDisplayed = true;
         }
 
         function togglePlusMinus() {
@@ -87,9 +99,27 @@
                 display.value = '-' + currentValue;
             }
         }
+
+        document.addEventListener('keydown', function (event) {
+            if (/^\d$/.test(event.key)) {
+                appendToDisplay(event.key);
+            }
+
+            if (event.key === 'Backspace') {
+                backspace();
+            }
+
+            if (event.key === '=') {
+                calculate();
+            }
+        });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
+
+    <script>
+
     </script>
 </body>
 
