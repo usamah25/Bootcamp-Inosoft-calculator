@@ -1,10 +1,5 @@
 @import url('https://fonts.cdnfonts.com/css/calculator');
 
-* {
-    margin: 0;
-    padding: 0;
-}
-
 .display-calc {
     height: 100px;
     text-align: right;
@@ -16,11 +11,11 @@
     background-color: black;
     color: white;
     height: 575px;
-    width: 400px;
+    width: 25em;
     padding: 10px;
     border-radius: 10px;
     text-align: center;
-    margin: auto;
+    margin: 3% auto;
 }
 
 .btn {
